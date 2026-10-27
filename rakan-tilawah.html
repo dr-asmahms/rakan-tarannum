@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rakan Tilawah</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&family=Amiri:wght@400;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=Noto+Naskh+Arabic:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#F3F5F1; --surface:#ffffff; --ink:#15241f; --muted:#5b6b65;
+  --accent:#0F3B3A; --accent-ink:#ffffff; --gold:#8C6B0F; --line:#CCD6CF;
+  --bot:#e6efec; --me:#0F3B3A; --me-ink:#ffffff; --wa:#1f9d55; --warn:#fff4e0; --warn-ink:#6b4a0f;
+  --display:"Domine",Georgia,serif;
+  --body:"Nunito Sans","Amiri",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --arabic:"Amiri","Noto Naskh Arabic","Traditional Arabic",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#0E1716; --surface:#13201e; --ink:#e4eee9; --muted:#9db0a8;
+  --accent:#5fb3a6; --accent-ink:#06130f; --gold:#d8ae5a; --line:#2A3B38;
+  --bot:#182725; --me:#1F4A47; --me-ink:#ffffff; --wa:#2fbf6a; --warn:#2c2414; --warn-ink:#f0d7a4; color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:16px}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mark{width:48px;height:48px;border-radius:12px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--arabic);font-size:26px;flex:none}
+.head-text{flex:1;min-width:200px}
+h1{margin:0;font-family:var(--display);font-size:1.45rem;font-weight:700;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.wa-top{display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:var(--wa);color:#fff;border-radius:999px;padding:8px 14px;font-weight:700;font-size:.85rem}
+.chat{background:var(--surface);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column}
+.log{padding:16px;display:flex;flex-direction:column;gap:10px;height:60vh;min-height:320px;overflow-y:auto}
+.msg{max-width:88%;line-height:1.9;padding:10px 14px;border-radius:14px;unicode-bidi:plaintext;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg .who{display:block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;opacity:.75;margin-bottom:2px}
+.bot{align-self:flex-start;background:var(--bot);border-bottom-left-radius:4px}
+.me{align-self:flex-end;background:var(--me);color:var(--me-ink);border-bottom-right-radius:4px}
+.ar{font-family:var(--arabic);font-size:1.15em}
+.quick{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start;max-width:100%}
+.chip{border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;padding:6px 12px;font:600 .85rem var(--body);cursor:pointer;unicode-bidi:plaintext}
+.chip:hover{background:var(--bot)}
+.handoff{align-self:flex-start;max-width:88%;background:var(--warn);color:var(--warn-ink);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.handoff strong{font-size:.95rem}
+.handoff .num{font-variant-numeric:tabular-nums;font-weight:700;user-select:all}
+.handoff a{align-self:flex-start;text-decoration:none;background:var(--wa);color:#fff;border-radius:10px;padding:8px 14px;font-weight:700}
+.composer{border-top:1px solid var(--line);padding:10px;display:flex;gap:8px;align-items:flex-end}
+textarea{flex:1;min-width:0;resize:none;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;padding:10px 12px;max-height:120px;unicode-bidi:plaintext}
+.btn{border:0;border-radius:12px;padding:10px 16px;font:700 .9rem var(--body);cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.status{font-size:.82rem;color:var(--muted)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+summary{cursor:pointer;font-weight:700}
+.tbl{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bot)}
+td:first-child{font-weight:600;width:32%;color:var(--muted)}
+button:focus-visible,a:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark" aria-hidden="true">ت</div>
+    <div class="head-text">
+      <h1>Rakan Tilawah <span lang="ar" style="font-family:var(--arabic);color:var(--gold)">رفيق التلاوة</span></h1>
+      <p class="sub">Study Buddy Bot PIMK6023 Kemahiran Al-Quran. Bacaan yang betul tetap disahkan melalui talaqqi.</p>
+    </div>
+    <a class="wa-top" id="waTop" target="_blank" rel="noopener">WhatsApp Pensyarah</a>
+  </header>
+
+  <section class="chat" aria-label="Perbualan">
+    <div class="log" id="log" aria-live="polite"></div>
+    <form class="composer" id="form">
+      <textarea id="inp" rows="1" placeholder="Taip soalan anda… contoh: Terangkan tanda waqaf" aria-label="Mesej anda"></textarea>
+      <button class="btn" type="submit">Hantar</button>
+    </form>
+  </section>
+
+  <div class="row">
+    <span class="status">Bot berjalan terus dalam pelayar. Tiada data dihantar ke mana-mana.</span>
+    <button class="btn ghost" id="reset" type="button">Mula semula</button>
+  </div>
+
+  <details>
+    <summary>Reka bentuk bot (intent, entity, fallback)</summary>
+    <div class="tbl"><table>
+      <tr><th>Medan</th><th>Jawapan</th></tr>
+      <tr><td>Nama Bot</td><td>Rakan Tilawah</td></tr>
+      <tr><td>Tujuan Bot</td><td>Membantu pelajar mengulang kaji kandungan PIMK6023 Kemahiran Al-Quran dengan menerangkan konsep, memberi contoh dan latihan berperingkat, bukan untuk menyiapkan tugasan atau peperiksaan bagi pihak mereka.</td></tr>
+      <tr><td>Soalan Pelajar 1</td><td>"Bolehkah awak terangkan [maratib tilawah] dengan cara yang mudah?"</td></tr>
+      <tr><td>Soalan Pelajar 2</td><td>"Saya tak faham [mad muttasil dan munfasil] ini, boleh awak pecahkan langkah demi langkah?"</td></tr>
+      <tr><td>Soalan Pelajar 3</td><td>"Bolehkah awak bagi saya soalan latihan untuk [tanda waqaf]?"</td></tr>
+      <tr><td>Entity</td><td>Topik (maratib tilawah, saktah dan bacaan khusus, tanda waqaf, lahn, makhraj, mad) / istilah tilawah</td></tr>
+      <tr><td>Cara Bot Bertanya (jika tiada)</td><td>"Baik, topik Kemahiran Al-Quran yang mana awak perlukan bantuan?"</td></tr>
+      <tr><td>Fallback</td><td>"Maaf, saya kurang faham. Boleh awak beritahu topik Kemahiran Al-Quran yang mana, atau cuba tulis soalan dengan cara lain?" Selepas 2 percubaan gagal, hubungkan ke pensyarah melalui WhatsApp.</td></tr>
+      <tr><td>Hubungkan ke Manusia</td><td>Permintaan menyiapkan tugasan; soalan markah, pentaksiran atau tarikh tugasan; soalan fatwa; isu peribadi/emosi. Bot menolak secara sopan dan beri pautan WhatsApp pensyarah (+60 13-363 5378).</td></tr>
+    </table></div>
+  </details>
+</div>
+
+<script>
+/* ---------- Tetapan ---------- */
+const WA_NUMBER = "60133635378";          // +6013-363 5378
+const WA_DISPLAY = "+60 13-363 5378";
+
+/* ---------- Kandungan topik (Entity: @topik) ---------- */
+const TOPICS = {
+  maratib:{
+    name:"Maratib Tilawah", ar:"Topik 1",
+    keys:["maratib tilawah","maratib","martabat bacaan","peringkat bacaan","kelajuan bacaan","tahqiq","tartil","tadwir","hadar","konsep tilawah"],
+    explain:"Maratib tilawah ialah peringkat kelajuan bacaan al-Quran. Semuanya wajib memelihara hukum tajwid.\n• Tahqiq: sangat perlahan dan teliti\n• Tartil: perlahan dan tenang dengan tadabbur\n• Tadwir: kadar sederhana\n• Hadar: laju, tetapi tajwid tetap dipelihara\n\nCuba teka: martabat mana yang paling sesuai untuk latihan talaqqi di kelas?",
+    steps:[
+      "Langkah 1: Tahqiq ialah bacaan sangat perlahan dan teliti. Ia sesuai untuk pengajaran dan latihan talaqqi.",
+      "Langkah 2: Tartil ialah bacaan perlahan dan tenang dengan tadabbur. Ia martabat paling utama (al-Muzzammil 73:4).",
+      "Langkah 3: Tadwir ialah bacaan kadar sederhana, antara tartil dan hadar.",
+      "Langkah 4: Hadar ialah bacaan laju, tetapi hukum tajwid tetap mesti dipelihara.",
+      "Langkah 5: Ingat: perbezaan maratib hanya pada kelajuan. Tajwid wajib dijaga dalam semua martabat."
+    ],
+    quiz:[
+      {q:"Martabat bacaan yang paling utama ialah…", o:["Tartil","Hadar","Tadwir"], a:0, hint:"Ia disebut dalam surah al-Muzzammil ayat 4."},
+      {q:"Bacaan yang sangat perlahan dan teliti untuk latihan talaqqi ialah…", o:["Tahqiq","Hadar","Tadwir"], a:0, hint:"Martabat ini paling perlahan."},
+      {q:"Dalam bacaan hadar, hukum tajwid…", o:["Boleh diabaikan","Tetap wajib dipelihara","Hanya mad dijaga"], a:1, hint:"Semua martabat wajib memelihara tajwid."}
+    ]
+  },
+  saktah:{
+    name:"Saktah dan Bacaan Khusus", ar:"Topik 5",
+    keys:["saktah","bacaan khusus","imalah","isymam","tashil","majraha","la ta mana","a ajamiyy","سكتة"],
+    explain:"Bacaan khusus riwayat Hafs ialah bacaan yang berbeza daripada kaedah biasa, seperti saktah, imalah, isymam dan tashil.\n\nSaktah ialah berhenti seketika tanpa bernafas, dengan niat menyambung bacaan. Ia wajib di empat tempat dalam riwayat Hafs Tariq al-Syatibiyyah.\n\nCuba ingat: berapa tempat saktah wajib dalam riwayat Hafs?",
+    steps:[
+      "Langkah 1: Saktah = berhenti seketika tanpa bernafas, dengan niat menyambung bacaan.",
+      "Langkah 2: Empat tempat saktah wajib:\n• al-Kahf 18:1–2: عِوَجًا ۜ قَيِّمًا\n• Yasin 36:52: مَرْقَدِنَا ۜ هَٰذَا\n• al-Qiyamah 75:27: مَنْ ۜ رَاقٍ\n• al-Mutaffifin 83:14: بَلْ ۜ رَانَ",
+      "Langkah 3: Imalah: مَجْرَىٰهَا (Hud 11:41), satu-satunya imalah dalam riwayat Hafs.",
+      "Langkah 4: Isymam: لَا تَأْمَنَّا (Yusuf 12:11).",
+      "Langkah 5: Tashil: ءَأَعْجَمِيٌّ (Fussilat 41:44).\n\nSebutan bacaan khusus perlu disahkan melalui talaqqi bersama pensyarah."
+    ],
+    quiz:[
+      {q:"Saktah dalam surah Yasin berlaku pada…", o:["مَرْقَدِنَا ۜ هَٰذَا","عِوَجًا ۜ قَيِّمًا","بَلْ ۜ رَانَ"], a:0, hint:"Ayat 52, tentang kebangkitan dari kubur."},
+      {q:"Satu-satunya imalah dalam riwayat Hafs ialah pada kalimah…", o:["مَجْرَىٰهَا","لَا تَأْمَنَّا","ءَأَعْجَمِيٌّ"], a:0, hint:"Surah Hud ayat 41."},
+      {q:"Isymam berlaku pada لَا تَأْمَنَّا dalam surah…", o:["Yusuf","Hud","Fussilat"], a:0, hint:"Ayat 11, kata-kata saudara-saudara seorang nabi."}
+    ]
+  },
+  waqaf:{
+    name:"Tanda Waqaf", ar:"Topik 4",
+    keys:["tanda waqaf","waqaf","ibtida","wakaf","mu anaqah","muanaqah","waqaf lazim","وقف"],
+    explain:"Tanda waqaf dalam mushaf membimbing di mana pembaca berhenti atau menyambung bacaan:\n• م (lazim): wajib berhenti\n• لا: jangan berhenti\n• ج (jaiz): harus berhenti atau sambung\n• صلى: sambung lebih utama\n• قلى: berhenti lebih utama\n• ∴ ∴ (mu'anaqah): berhenti pada salah satu sahaja\n\nCuba teka: tanda mana yang bermaksud wajib berhenti?",
+    steps:[
+      "Langkah 1: م (waqaf lazim) bermaksud wajib berhenti.",
+      "Langkah 2: لا bermaksud jangan berhenti.",
+      "Langkah 3: ج (jaiz) bermaksud harus, boleh berhenti atau sambung.",
+      "Langkah 4: صلى bermaksud sambung lebih utama. قلى bermaksud berhenti lebih utama.",
+      "Langkah 5: ∴ ∴ (mu'anaqah) bermaksud berhenti pada salah satu tempat sahaja, bukan kedua-duanya."
+    ],
+    quiz:[
+      {q:"Tanda waqaf yang bermaksud wajib berhenti ialah…", o:["م","ج","صلى"], a:0, hint:"Ia dipanggil waqaf lazim."},
+      {q:"Tanda قلى bermaksud…", o:["Berhenti lebih utama","Sambung lebih utama","Jangan berhenti"], a:0, hint:"Bandingkan dengan صلى yang bermaksud sebaliknya."},
+      {q:"Tanda ∴ ∴ (mu'anaqah) bermaksud…", o:["Berhenti pada kedua-dua tempat","Berhenti pada salah satu sahaja","Wajib sambung"], a:1, hint:"Dua tanda berpasangan, tetapi pilih satu."}
+    ]
+  },
+  lahn:{
+    name:"Lahn Jali dan Khafi", ar:"Topik 6",
+    keys:["lahn jali","lahn khafi","lahn","kesalahan bacaan","kesalahan nyata","kesalahan tersembunyi","fasohah","tahsin tilawah"],
+    explain:"Lahn ialah kesalahan dalam bacaan al-Quran. Ia ada dua jenis:\n• Lahn jali (nyata): silap huruf atau baris yang boleh mengubah makna. Hukumnya haram.\n• Lahn khafi (tersembunyi): silap kesempurnaan sebutan dan tajwid yang tidak mengubah makna. Makruh di sisi kebanyakan ulama dan perlu dibaiki.\n\nCuba teka: أَنْعَمْتَ dibaca أَنْعَمْتُ termasuk lahn yang mana?",
+    steps:[
+      "Langkah 1: Lahn jali ialah kesalahan nyata pada huruf atau baris yang boleh mengubah makna.",
+      "Langkah 2: Contoh lahn jali: أَنْعَمْتَ dibaca أَنْعَمْتُ. Hukumnya haram.",
+      "Langkah 3: Lahn khafi ialah kesalahan tersembunyi pada kesempurnaan sebutan dan hukum tajwid, tanpa mengubah makna.",
+      "Langkah 4: Contoh lahn khafi: ghunnah tidak cukup dua harakat, atau mad kurang kadarnya.",
+      "Langkah 5: Lahn khafi makruh di sisi kebanyakan ulama dan perlu dibaiki melalui talaqqi bersama guru."
+    ],
+    quiz:[
+      {q:"أَنْعَمْتَ dibaca أَنْعَمْتُ ialah contoh…", o:["Lahn jali","Lahn khafi","Bukan kesalahan"], a:0, hint:"Baris berubah dan maknanya ikut berubah."},
+      {q:"Hukum lahn jali ialah…", o:["Haram","Makruh","Harus"], a:0, hint:"Ia boleh mengubah makna al-Quran."},
+      {q:"Ghunnah tidak cukup dua harakat ialah contoh…", o:["Lahn khafi","Lahn jali","Waqaf"], a:0, hint:"Ia tidak mengubah makna, tetapi kurang sempurna."}
+    ]
+  },
+  makhraj:{
+    name:"Makhraj Huruf", ar:"Topik 4",
+    keys:["makhraj","makharij","makhraj huruf","makharij al huruf","tempat keluar huruf","jauf","halq","lisan","syafatain","khaisyum","sebutan huruf"],
+    explain:"Makhraj ialah tempat keluar huruf. Ada lima makhraj umum:\n• al-Jauf (rongga mulut dan tekak)\n• al-Halq (kerongkong)\n• al-Lisan (lidah)\n• asy-Syafatain (dua bibir)\n• al-Khaisyum (rongga hidung)\n\nCuba teka: huruf ب dan م keluar dari makhraj mana?",
+    steps:[
+      "Langkah 1: al-Jauf (rongga mulut dan tekak) ialah tempat keluar huruf mad.",
+      "Langkah 2: al-Halq (kerongkong) ialah tempat keluar huruf halqi: ء ه ع ح غ خ",
+      "Langkah 3: al-Lisan (lidah) ialah makhraj paling banyak huruf, contohnya ق ك ت د ط.",
+      "Langkah 4: asy-Syafatain (dua bibir) ialah tempat keluar ف ب م و.",
+      "Langkah 5: al-Khaisyum (rongga hidung) ialah tempat keluar ghunnah (dengung).\n\nSebutan makhraj yang tepat perlu diperdengarkan kepada pensyarah secara talaqqi."
+    ],
+    quiz:[
+      {q:"Huruf ب dan م keluar dari…", o:["asy-Syafatain","al-Halq","al-Khaisyum"], a:0, hint:"Cuba sebut kedua-dua huruf dan perhatikan bibir anda."},
+      {q:"Ghunnah (dengung) keluar dari…", o:["al-Khaisyum","al-Jauf","al-Lisan"], a:0, hint:"Ia berkait dengan rongga hidung."},
+      {q:"Huruf ع dan ح keluar dari…", o:["al-Halq","al-Lisan","asy-Syafatain"], a:0, hint:"Huruf ini dikenali sebagai huruf halqi."}
+    ]
+  },
+  mad:{
+    name:"Mad Muttasil dan Munfasil", ar:"Topik 4",
+    keys:["mad","mad wajib","mad muttasil","muttasil","mad jaiz","mad munfasil","munfasil","harakat","panjang bacaan","مد"],
+    explain:"Mad wajib muttasil dan mad jaiz munfasil berlaku apabila huruf mad bertemu hamzah.\n• Muttasil: huruf mad dan hamzah dalam satu kalimah, contohnya جَاءَ\n• Munfasil: huruf mad di hujung kalimah, hamzah di awal kalimah seterusnya, contohnya بِمَا أُنْزِلَ\n\nKedua-duanya dibaca 4 atau 5 harakat.\n\nCuba fikir: kenapa pembaca perlu kekalkan satu kadar dalam satu bacaan?",
+    steps:[
+      "Langkah 1: Kenal pasti huruf mad: alif, waw dan ya' yang dipanjangkan.",
+      "Langkah 2: Jika huruf mad bertemu hamzah dalam satu kalimah, ia mad wajib muttasil. Contoh: جَاءَ، السَّمَاءِ",
+      "Langkah 3: Jika huruf mad di hujung kalimah dan hamzah di awal kalimah seterusnya, ia mad jaiz munfasil. Contoh: بِمَا أُنْزِلَ",
+      "Langkah 4: Kadar bacaan kedua-duanya: 4 atau 5 harakat.",
+      "Langkah 5: Pilih satu kadar dan kekalkan sepanjang satu bacaan supaya bacaan konsisten."
+    ],
+    quiz:[
+      {q:"Kadar mad wajib muttasil dan mad jaiz munfasil ialah…", o:["2 harakat","4 atau 5 harakat","6 harakat sahaja"], a:1, hint:"Ada dua pilihan kadar."},
+      {q:"جَاءَ ialah contoh…", o:["Mad wajib muttasil","Mad jaiz munfasil","Mad asli"], a:0, hint:"Huruf mad dan hamzah berada dalam satu kalimah."},
+      {q:"Dalam satu bacaan, kadar mad yang dipilih perlu…", o:["Dikekalkan","Ditukar setiap ayat","Diikut sesuka hati"], a:0, hint:"Ia supaya bacaan konsisten."}
+    ]
+  }
+};
+
+/* ---------- Glosari istilah (Entity: @istilah) ---------- */
+const GLOSS = [
+  ["Tilawah","bacaan al-Quran dengan memelihara hukum tajwid dan adabnya.",["tilawah"]],
+  ["Tartil","bacaan perlahan dan tenang dengan tadabbur; martabat bacaan paling utama (al-Muzzammil 73:4).",["tartil"]],
+  ["Tahqiq","bacaan sangat perlahan dan teliti, sesuai untuk pengajaran dan latihan talaqqi.",["tahqiq"]],
+  ["Tadwir","bacaan kadar sederhana, antara tartil dan hadar.",["tadwir"]],
+  ["Hadar","bacaan laju dengan tajwid tetap dipelihara.",["hadar"]],
+  ["Talaqqi musyafahah","cara mempelajari bacaan al-Quran secara berdepan dengan guru, mendengar dan memperdengarkan bacaan.",["talaqqi","musyafahah"]],
+  ["Saktah","berhenti seketika tanpa bernafas, dengan niat menyambung bacaan.",["saktah"]],
+  ["Imalah","bacaan yang condong dari baris atas ke arah baris bawah; dalam riwayat Hafs hanya pada مَجْرَىٰهَا (Hud 11:41).",["imalah"]],
+  ["Isymam","dalam riwayat Hafs berlaku pada لَا تَأْمَنَّا (Yusuf 12:11). Cara sebutannya perlu dipelajari secara talaqqi.",["isymam"]],
+  ["Tashil","dalam riwayat Hafs berlaku pada ءَأَعْجَمِيٌّ (Fussilat 41:44). Cara sebutannya perlu dipelajari secara talaqqi.",["tashil"]],
+  ["Lahn jali","kesalahan nyata pada huruf atau baris yang boleh mengubah makna; hukumnya haram.",["lahn jali"]],
+  ["Lahn khafi","kesalahan tersembunyi pada kesempurnaan sebutan dan tajwid yang tidak mengubah makna; perlu dibaiki.",["lahn khafi"]],
+  ["Rasm uthmani","kaedah penulisan mushaf al-Quran yang dinisbahkan kepada zaman Saidina Uthman r.a.",["rasm uthmani","rasm"]],
+  ["Dhabt","tanda-tanda pada huruf mushaf seperti baris dan titik, termasuk nuqat al-i'rab dan nuqat al-i'jam.",["dhabt","dabt"]],
+  ["Ghunnah","dengung yang keluar dari rongga hidung (al-Khaisyum), dibaca dua harakat.",["ghunnah","dengung"]],
+  ["Tarannum","seni melagukan bacaan al-Quran. Kursus ini memberi tumpuan kepada tarannum Nahawand dan Hijaz.",["tarannum","lagu","nahawand","hijaz"]],
+  ["Tahsin al-sawt","tujuh elemen memperelok suara: burdah, salalim nuzul, salalim tulu', ikhtilal al-lahni, wuslah, qit'ah dan mahattah. Huraian setiap elemen ada dalam Topik 3.1 modul PIMK6023.",["tahsin al sawt","tahsin al-sawt","tahsin suara","burdah","wuslah","qitah","mahattah"]],
+  ["Riwayat Hafs","riwayat bacaan Hafs 'an 'Asim melalui Tariq al-Syatibiyyah, yang menjadi asas kursus ini.",["riwayat hafs","hafs","syatibiyyah"]]
+];
+
+/* ---------- Maklumat kursus ---------- */
+const INFO = [
+  {keys:["hpk","hasil pembelajaran","objektif kursus"], text:"Hasil Pembelajaran Kursus PIMK6023:\n• HPK1: Menganalisis konsep tilawah al-Quran, rasm uthmani dan dhabtul Quran, tarannum al-Quran dan isu serta perkembangan tilawah al-Quran semasa.\n• HPK2: Membincangkan secara kritis hukum-hukum tajwid riwayat Hafs 'an 'Asim melalui Tariq al-Syatibiyyah serta aplikasi dhabt al-Quran dalam Mushaf Uthmani.\n• HPK3: Mempamerkan bacaan khusus riwayat Hafs serta amali tarannum Nahawand dan Hijaz berdasarkan komponen tahsin tilawah al-Quran."},
+  {keys:["siapa pensyarah","pensyarah kumpulan","pensyarah pi1","pensyarah pi2","pensyarah pi3","pensyarah saya"], text:"Pensyarah PIMK6023 mengikut kumpulan:\n• PI1: En. Mohamad Raffe bin Ghalil Abbas\n• PI2: En. Adzli bin Ismail\n• PI3: Dr. Asmah binti Mat Sa'ud"},
+  {keys:["senarai topik","topik kursus","apa topik","kandungan kursus"], text:"Topik PIMK6023:\n1. Konsep Tilawah Al-Quran\n2. Rasm Uthmani dan Dhabtul Quran\n3. Tarannum Al-Quran\n4. Tajwid Riwayat Hafs 'an 'Asim Tariq al-Syatibiyyah\n5. Bacaan Khusus Riwayat Hafs\n6. Amali Tarannum Mujawwad dan Murattal (komponen tahsin tilawah)"}
+];
+
+/* ---------- Kata kunci intent ---------- */
+const K = {
+  tugasan:["markah","pentaksiran","tarikh tugasan","karangan","tugasan","assignment","kerja rumah","kerja sekolah","homework","siapkan","jawapan peperiksaan","jawapan exam","peperiksaan","exam","final"],
+  fatwa:["fatwa","halal atau haram","berdosa","dosa"],
+  emosi:["sedih","stres","stress","tertekan","risau","putus asa","masalah peribadi","masalah keluarga","emosi","menangis","murung","kecewa"],
+  manusia:["pensyarah","cakap dengan manusia","whatsapp","hubungi","cakap dengan orang"],
+  salam:["assalamualaikum","salam","hai","hi","hello","helo","السلام عليكم"],
+  terimakasih:["terima kasih","thanks","thank you","tq","شكرا"],
+  latihan:["latihan","soalan latihan","bagi soalan","beri soalan","kuiz","quiz","uji","test","اختبرني","tanya saya"],
+  langkah:["langkah","step","pecahkan","tak faham","tidak faham","x faham","keliru","bagaimana","macam mana"],
+  terangkan:["terangkan","jelaskan","apa itu","apakah","explain","takrif","definisi","ajar","اشرح","belajar","nak tahu"],
+  terjemah:["maksud","makna","terjemah","definisi","takrif","erti"],
+  seterusnya:["seterusnya","next","lagi","teruskan","ok","okay","faham","baik","sambung"],
+  berhenti:["berhenti","stop","keluar","tamat","menu","batal"]
+};
+
+/* ---------- Normalisasi ---------- */
+function norm(s){
+  return (" "+s+" ").toLowerCase()
+    .replace(/[ً-ٰٟـ]/g,"")
+    .replace(/[أإآٱ]/g,"ا").replace(/ى/g,"ي")
+    .replace(/['’`‘]/g,"").replace(/[?!.,;:()"؟،]/g," ")
+    .replace(/\s+/g," ");
+}
+const has = (t, list) => list.some(k => t.includes(" "+norm(k).trim()+" ") || (norm(k).trim().includes(" ") && t.includes(norm(k).trim())));
+function findTopic(t){
+  for (const [id,tp] of Object.entries(TOPICS)) if (has(t,tp.keys)) return id;
+  return null;
+}
+function findWord(t){
+  for (const [term,def,keys] of GLOSS) if (has(t,keys)) return {term,def};
+  return null;
+}
+
+/* ---------- Keadaan perbualan ---------- */
+let S;
+function fresh(){ S = {pending:null, topic:null, step:-1, quiz:null, fails:0, lastQ:""}; }
+
+/* ---------- Paparan ---------- */
+const log = document.getElementById("log"), inp = document.getElementById("inp");
+function waLink(q){
+  const text = "Assalamualaikum Dr. Saya pelajar yang menggunakan Rakan Tilawah (PIMK6023)." + (q ? " Soalan saya: " + q : "");
+  return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text);
+}
+document.getElementById("waTop").href = waLink("");
+function scroll(){ log.scrollTop = log.scrollHeight; }
+function say(text){
+  const d = document.createElement("div"); d.className = "msg bot";
+  const w = document.createElement("span"); w.className="who"; w.textContent="Bot";
+  const t = document.createElement("span"); t.textContent = text;
+  d.append(w,t); log.append(d); scroll();
+}
+function me(text){
+  const d = document.createElement("div"); d.className = "msg me";
+  const w = document.createElement("span"); w.className="who"; w.textContent="Pelajar";
+  const t = document.createElement("span"); t.textContent = text;
+  d.append(w,t); log.append(d); scroll();
+}
+function quick(opts){
+  log.querySelectorAll(".quick").forEach(q=>q.remove());
+  if (!opts || !opts.length) return;
+  const box = document.createElement("div"); box.className="quick";
+  for (const o of opts){
+    const b = document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=o;
+    b.onclick = () => handle(o);
+    box.append(b);
+  }
+  log.append(box); scroll();
+}
+function handoff(reason){
+  const d = document.createElement("div"); d.className="handoff";
+  const s = document.createElement("strong"); s.textContent = "Hubungi pensyarah melalui WhatsApp";
+  const p = document.createElement("span"); p.textContent = reason;
+  const n = document.createElement("span"); n.className="num"; n.textContent = WA_DISPLAY;
+  const a = document.createElement("a"); a.href = waLink(S.lastQ); a.target="_blank"; a.rel="noopener"; a.textContent="Buka WhatsApp";
+  d.append(s,p,n,a); log.append(d); scroll();
+}
+const MENU = ["Terangkan maratib tilawah","Pecahkan saktah langkah demi langkah","Latihan tanda waqaf","Apa maksud talaqqi?","Senarai topik kursus"];
+const ASK_TOPIC = "Baik, topik Kemahiran Al-Quran yang mana awak perlukan bantuan?";
+const TOPIC_CHIPS = Object.values(TOPICS).map(t=>t.name);
+
+/* ---------- Tindakan ---------- */
+function doExplain(id){ S.topic=id; S.step=-1; say(TOPICS[id].explain); quick(["Pecahkan langkah demi langkah","Beri soalan latihan"]); }
+function doSteps(id){ S.topic=id; S.step=0; say(TOPICS[id].name+" ("+TOPICS[id].ar+")\n\n"+TOPICS[id].steps[0]); quick(["Seterusnya","Berhenti"]); }
+function nextStep(){
+  const tp = TOPICS[S.topic]; S.step++;
+  if (S.step < tp.steps.length){ say(tp.steps[S.step]); quick(["Seterusnya","Berhenti"]); }
+  else { S.step=-1; say("Syabas, semua langkah selesai! Sedia untuk uji kefahaman?"); quick(["Beri soalan latihan","Pilih topik lain"]); }
+}
+function doQuiz(id){ S.topic=id; S.step=-1; S.quiz={i:0, score:0, tries:0}; say("Kuiz "+TOPICS[id].name+": 3 soalan. Pilih jawapan anda."); askQ(); }
+function askQ(){ const q = TOPICS[S.topic].quiz[S.quiz.i]; say("Soalan "+(S.quiz.i+1)+": "+q.q); quick(q.o); }
+function answerQ(t, raw){
+  const q = TOPICS[S.topic].quiz[S.quiz.i];
+  let pick = q.o.findIndex(o => norm(o).trim() === t.trim());
+  const letter = {" a ":0," b ":1," c ":2," 1 ":0," 2 ":1," 3 ":2}[t]; if (pick<0 && letter!==undefined) pick = letter;
+  if (pick < 0) return false;
+  if (pick === q.a){ S.quiz.score += S.quiz.tries===0 ? 1 : 0; say(["Betul!","Tepat!","Syabas!"][S.quiz.i%3]+" Jawapannya "+q.o[q.a]+"."); }
+  else if (S.quiz.tries===0){ S.quiz.tries=1; say("Belum tepat. Petunjuk: "+q.hint+"\nCuba sekali lagi."); quick(q.o); return true; }
+  else { say("Jawapan yang betul ialah "+q.o[q.a]+". Tidak mengapa, kita teruskan."); }
+  S.quiz.i++; S.quiz.tries=0;
+  if (S.quiz.i < TOPICS[S.topic].quiz.length) askQ();
+  else { const n = TOPICS[S.topic].quiz.length; say("Kuiz tamat! Markah anda: "+S.quiz.score+"/"+n+"."+(S.quiz.score===n?" Hebat!":" Cuba ulang kaji langkah demi langkah.")); S.quiz=null; quick(["Pecahkan langkah demi langkah","Pilih topik lain"]); }
+  return true;
+}
+function run(intent, id){ S.pending=null; S.fails=0; ({terangkan:doExplain, langkah:doSteps, latihan:doQuiz})[intent](id); }
+function fallback(){
+  S.fails++;
+  if (S.fails < 2){ say("Maaf, saya kurang faham. Boleh awak beritahu topik Kemahiran Al-Quran yang mana, atau cuba tulis soalan dengan cara lain?"); quick(TOPIC_CHIPS); }
+  else { say("Nampaknya saya belum dapat membantu soalan ini. Pensyarah boleh membantu awak dengan lebih baik."); handoff("Saya sudah cuba 2 kali tetapi masih belum faham soalan awak."); S.fails=0; quick(MENU); }
+}
+
+/* ---------- Pengendali utama ---------- */
+function handle(raw){
+  raw = raw.trim(); if (!raw) return;
+  me(raw); quick(null);
+  const t = norm(raw);
+
+  // Maklumat kursus
+  for (const it of INFO){ if (has(t,it.keys)){ S.fails=0; say(it.text); quick(MENU); return; } }
+
+  // Hubungkan ke manusia
+  if (has(t,K.tugasan)){ S.lastQ=raw; say("Maaf, saya tidak boleh menyiapkan tugasan atau menjawab soalan markah dan pentaksiran. Maklumat itu perlu dirujuk kepada pensyarah kumpulan masing-masing. Saya boleh bimbing konsepnya."); handoff("Untuk pertanyaan tentang tugasan atau peperiksaan, sila rujuk pensyarah."); quick(TOPIC_CHIPS); return; }
+  if (has(t,K.fatwa)){ S.lastQ=raw; say("Soalan hukum agama perlu dijawab oleh yang berautoriti. Saya hanya membantu mengulang kaji kandungan kursus Kemahiran Al-Quran."); handoff("Sila tanya pensyarah untuk soalan hukum agama."); quick(MENU); return; }
+  if (has(t,K.emosi)){ S.lastQ=""; say("Terima kasih kerana berkongsi. Apa yang awak rasa itu penting, dan awak tidak perlu hadapinya seorang diri. Bercakap dengan pensyarah, mentor atau kaunselor boleh membantu."); handoff("Pensyarah sedia mendengar dan membantu."); return; }
+  if (has(t,K.manusia)){ S.lastQ=""; say("Boleh! Ini cara menghubungi pensyarah."); handoff("Hantar soalan awak terus kepada pensyarah."); return; }
+
+  // Mod kuiz
+  if (S.quiz){
+    if (has(t,K.berhenti)){ S.quiz=null; say("Kuiz dihentikan. Apa yang awak mahu buat sekarang?"); quick(MENU); return; }
+    if (answerQ(t, raw)) return;
+    if (!(findTopic(t) || has(t,K.latihan) || has(t,K.langkah) || has(t,K.terangkan) || has(t,K.terjemah))){
+    say("Pilih salah satu jawapan, atau taip 'berhenti' untuk keluar dari kuiz."); quick(TOPICS[S.topic].quiz[S.quiz.i].o); return; }
+    S.quiz=null;
+  }
+  // Mod langkah
+  if (S.step >= 0){
+    if (has(t,K.berhenti)){ S.step=-1; say("Baik. Apa yang awak mahu buat sekarang?"); quick(MENU); return; }
+    const newAsk = findTopic(t) || has(t,K.latihan) || has(t,K.terangkan) || has(t,K.terjemah) || has(t,["pecahkan","langkah demi langkah"]);
+    if (!newAsk && has(t,K.seterusnya)){ nextStep(); return; }
+    if (newAsk) S.step=-1;
+  }
+
+  if (has(t,K.salam)){ S.fails=0; say("Wa'alaikumussalam! Saya Rakan Tilawah. Saya boleh terangkan topik, pecahkan langkah demi langkah, atau beri soalan latihan."); quick(MENU); return; }
+  if (has(t,K.terimakasih)){ S.fails=0; say("Sama-sama! Teruskan belajar!"); quick(MENU); return; }
+  if (has(t,K.berhenti) || t.includes("topik lain")){ S.step=-1; say("Pilih topik:"); quick(TOPIC_CHIPS); return; }
+
+  // Maksud istilah (@istilah)
+  const w = findWord(t);
+  if (w && has(t,K.terjemah) && !has(t,K.latihan) && !has(t,K.langkah)){
+    S.fails=0;
+    say(w.term+": "+w.def);
+    quick(["Terangkan tanda waqaf","Latihan lahn jali dan khafi"]); return;
+  }
+
+  // Intent + entity
+  const id = findTopic(t);
+  let intent = has(t,K.latihan) ? "latihan" : has(t,K.langkah) ? "langkah" : has(t,K.terangkan) ? "terangkan" : null;
+  if (!intent && S.topic && has(t,["pecahkan langkah demi langkah"])) intent="langkah";
+
+  if (intent && id){ run(intent,id); return; }
+  if (intent && !id){
+    if (S.topic && /langkah|soalan latihan|beri soalan/.test(t) && t.trim().split(" ").length<=5){ run(intent,S.topic); return; }
+    S.pending = intent; S.fails=0; say(ASK_TOPIC); quick(TOPIC_CHIPS); return;
+  }
+  if (!intent && id){ run(S.pending || "terangkan", id); return; }
+
+  S.lastQ = raw;
+  fallback();
+}
+
+/* ---------- Mula ---------- */
+function start(){
+  fresh(); log.textContent="";
+  say("Assalamualaikum! Saya Rakan Tilawah, pembantu ulang kaji untuk PIMK6023 Kemahiran Al-Quran.\nSaya boleh terangkan topik, pecahkan langkah demi langkah, beri soalan latihan, atau jelaskan maksud istilah.");
+  quick(MENU);
+}
+document.getElementById("form").addEventListener("submit", e => { e.preventDefault(); const v=inp.value; inp.value=""; inp.style.height=""; handle(v); });
+inp.addEventListener("keydown", e => { if (e.key==="Enter" && !e.shiftKey){ e.preventDefault(); document.getElementById("form").requestSubmit(); } });
+inp.addEventListener("input", () => { inp.style.height="auto"; inp.style.height=Math.min(inp.scrollHeight,120)+"px"; });
+document.getElementById("reset").onclick = start;
+start();
+</script>
+</body>
+</html>
